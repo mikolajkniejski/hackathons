@@ -1,0 +1,26 @@
+|    | company   |   employment-2022 |   employment-2024 |   revenue-2024 |   revenue-2022 | unit   |   adopted-ai | sector     | link                                                |
+|---:|:----------|------------------:|------------------:|---------------:|---------------:|:-------|-------------:|:-----------|:----------------------------------------------------|
+|  0 | PM        |             79800 |             83100 |        37878   |        31762   | mioUSD |            1 | tobacco    | https://stockanalysis.com/stocks/pm/                |
+|  1 | JP        |             52640 |             53593 |        20135   |        21000   | mioUSD |            1 | tobacco    | https://stockanalysis.com/quote/tyo/2914/           |
+|  2 | BTI       |             77951 |             74617 |        30523.1 |        32356.3 | mioUSD |            0 | tobacco    | https://stockanalysis.com/stocks/bti/financials/    |
+|  3 | IMB       |             25700 |             25600 |        21813.5 |        19781.2 | mioUSD |            0 | tobacco    | https://stockanalysis.com/quote/lon/IMB/financials/ |
+|  4 | BLK       |             19800 |             19800 |        20407   |        17873   | mioUSD |            1 | investment | https://stockanalysis.com/stocks/blk/financials/    |
+|  5 | MS        |             80000 |             82000 |        61500   |        53390   | mioUSD |            1 | investment | https://stockanalysis.com/stocks/ms/financials/     |
+|  6 | STT       |             42000 |             53000 |        12925   |        12128   | mioUSD |            0 | investment | https://stockanalysis.com/stocks/stt/financials/    |
+|  7 | IVZ       |              8500 |              8500 |         6000   |         6000   | mioUSD |            0 | investment | https://stockanalysis.com/stocks/ivz/employees/     |
+|  8 | TROW      |              7900 |              8100 |         7100   |         6500   | mioUSD |            0 | investment | https://stockanalysis.com/stocks/trow/financials/   |
+|  9 | CG        |              2100 |              2300 |         4740   |         4117   | mioUSD |            1 | investment | https://stockanalysis.com/stocks/cg/financials/     |
+| 10 | UV        |             10800 |             11250 |         2750   |         2104   | mioUSD |            0 | tobacco    | https://stockanalysis.com/stocks/uvv/financials/    |
+| 11 | AAL       |            129700 |            133300 |        54210   |        48970   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/aal/               |
+| 12 | DAL       |             95000 |            100000 |        61640   |        50580   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/dal/               |
+| 13 | UAL       |             92795 |            107300 |        57060   |        44960   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/ual/               |
+| 14 | LUV       |             66656 |             72450 |        27480   |        23810   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/luv/               |
+| 15 | CCL       |             85200 |            115000 |        25020   |        12170   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/ccl/               |
+| 16 | NCLH      |             38900 |             41700 |         9480   |         4840   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/nclh/              |
+| 17 | MAR       |            377000 |            418000 |         6620   |         5360   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/mar/               |
+| 18 | HLT       |            159000 |            181000 |         4750   |         3740   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/hlt/               |
+| 19 | BKNG      |             21600 |             24300 |        23740   |        17090   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/bkng/              |
+| 20 | EXPE      |             16500 |             16500 |        13690   |        11670   | mioUSD |            1 | tourism    | https://stockanalysis.com/stocks/expe/              |
+| 21 | ABNB      |              6811 |              7300 |        11100   |         8400   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/abnb/              |
+| 22 | TUI       |             61091 |             66845 |        23170   |        18772.9 | mioUSD |            0 | tourism    | https://stockanalysis.com/quote/bit/1TUI1U/         |
+| 23 | UAL       |             92795 |            107300 |        57060   |        44960   | mioUSD |            0 | tourism    | https://stockanalysis.com/stocks/ual/               |
