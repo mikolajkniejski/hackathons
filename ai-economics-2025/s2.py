@@ -131,3 +131,74 @@ plt.savefig('/mnt/data/plot_scatter_firm_lp.png')
 plt.show()
 
 print("Plots saved to /mnt/data/:\n  - plot_bar_lp_growth.png\n  - plot_did_ci.png\n  - plot_scatter_firm_lp.png")
+
+
+
+import pandas as pd, numpy as np, matplotlib.pyplot as plt
+
+# 1. Load and harmonise -------------------------------------------------
+df  = pd.read_csv("ai-economics-2025/data.csv")
+df2 = pd.read_csv("ai-economics-2025/data2.csv")
+df2['sector']  = 'tourism'
+df2['unit']    = 'mio' + df2['unit']
+df2['revenue-2024'] *= 1_000
+df2['revenue-2022'] *= 1_000
+df = pd.concat([df, df2], ignore_index=True)
+
+rates = {('mioEUR',2022):1.135, ('mioEUR',2024):1,
+         ('mioGBP',2022):1.17 , ('mioGBP',2024):1.18}
+for y in (2022,2024):
+    df[f'revenue-{y}'] = df.apply(
+        lambda r: r[f'revenue-{y}']*rates.get((r['unit'],y),1), axis=1)
+df['unit'] = 'mioUSD'
+
+# 2. Productivity metrics ----------------------------------------------
+df['lp-2022'] = df['revenue-2022']/df['employment-2022']
+df['lp-2024'] = df['revenue-2024']/df['employment-2024']
+df['lp-change'] = df['lp-2024']-df['lp-2022']
+df['lp-change-pct'] = 100*df['lp-change']/df['lp-2022']
+
+cell = (df.groupby(['sector','adopted-ai'])
+          .agg({'revenue-2022':'sum','employment-2022':'sum',
+                'revenue-2024':'sum','employment-2024':'sum'}))
+cell['lp-2022-w'] = cell['revenue-2022']/cell['employment-2022']
+cell['lp-2024-w'] = cell['revenue-2024']/cell['employment-2024']
+cell['lp-change-pct-w'] = 100*(cell['lp-2024-w']-cell['lp-2022-w'])/cell['lp-2022-w']
+
+# 3a. Bar plot ----------------------------------------------------------
+pivot = cell['lp-change-pct-w'].unstack('adopted-ai')
+x = np.arange(len(pivot)); w = 0.35
+fig,ax = plt.subplots(figsize=(8,5))
+ax.bar(x-w/2,pivot[0],w,label='No AI')
+ax.bar(x+w/2,pivot[1],w,label='AI')
+ax.set_ylabel('% change in revenue/employee'); ax.set_xticks(x)
+ax.set_xticklabels(pivot.index); ax.legend(); ax.grid(axis='y',ls='--',alpha=.6)
+plt.title('Employment-weighted LP growth (2022→24)'); plt.tight_layout()
+plt.show()
+
+# 3b. Error-bar plot ----------------------------------------------------
+def did(df_s):
+    g = (df_s.groupby('adopted-ai')
+             .agg({'revenue-2022':'sum','employment-2022':'sum',
+                   'revenue-2024':'sum','employment-2024':'sum'}))
+    if {0,1}.issubset(g.index):
+        lp22, lp24 = g['revenue-2022']/g['employment-2022'], g['revenue-2024']/g['employment-2024']
+        return (lp24-lp22).loc[1]-(lp24-lp22).loc[0]
+    return np.nan
+res=[]
+for s,ds in df.groupby('sector'):
+    d = did(ds); boot=[did(ds.sample(frac=1,replace=True)) for _ in range(4000)]
+    lo,hi = np.percentile(boot,[2.5,97.5]); res.append((s,d,lo,hi))
+res = pd.DataFrame(res,columns=['sector','point','lo','hi']).sort_values('point',ascending=False)
+fig,ax=plt.subplots(figsize=(6,4))
+ax.errorbar(res['sector'],res['point'],yerr=[res['point']-res['lo'],res['hi']-res['point']],
+            fmt='o',capsize=5); ax.axhline(0,c='grey',ls='--')
+ax.set_ylabel('Δ USD / employee'); plt.title('DiD estimates with 95 % CI'); plt.tight_layout()
+plt.show()
+
+# 3c. Scatter -----------------------------------------------------------
+fig,ax=plt.subplots(figsize=(8,5))
+for a,g in df.groupby('adopted-ai'):
+    ax.scatter(g['lp-change-pct'],g['sector'],alpha=.6,label=('AI' if a else 'No AI'))
+ax.set_xlabel('% change in revenue/employee'); plt.title('Firm-level LP changes')
+ax.legend(); ax.grid(ls='--',alpha=.5); plt.tight_layout(); plt.show()

@@ -34,6 +34,8 @@ df["revenue-2024"] = df.apply(convert, axis=1, year=2024).round(2)
 df["revenue-2022"] = df.apply(convert, axis=1, year=2022).round(2)
 df["unit"] = "mioUSD"  
 
+df.to_markdown("./a")
+
 
 missing = df['sector'].isna().sum()
 assert missing == 0, f"{missing} rows still lack a sector label!"
